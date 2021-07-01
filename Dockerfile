@@ -12,7 +12,7 @@ COPY . /app
 RUN sh -c "wget http://getcomposer.org/composer.phar && chmod a+x composer.phar && mv composer.phar /usr/local/bin/composer"
 RUN cd /app && \
     /usr/local/bin/composer install --no-dev
-RUN  pdo pdo_mysql mbstring
+RUN docker-php-ext-install pdo pdo_mysql mbstring
 
 RUN chown -R www-data: /app
 
