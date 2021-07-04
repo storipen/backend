@@ -50,15 +50,16 @@ class StoryController extends Controller
             $story->sinopsis = $request['sinopsis'];
 
             $imageName = time() . '.' . $request->image->extension();
-            Log::info("PUBLIC PATH===" . $uploadimage);
-            // $request->image->move($uploadimage, $imageName);
+            
             $image = $request->file('image');
             $img = Image::make($image->path());
-            $img->resize(300, 500, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($uploadimage.'/'.$imageName);
-
-            $story->thumbnail = $value . $imageName;
+            // $img->resize(300, 500, function ($constraint) {
+            //     $constraint->aspectRatio();
+            // })->save($imageName);
+            $filePath =  $imageName;
+            $disk = Storage::disk('gcs')->put($filePath, $img);
+           
+            $story->thumbnail =  $value . $imageName;
             $story->imageHeader =  $imageName;
             $story->author = $request['author'];
             $story->tagline = $request['tagline'];
@@ -108,11 +109,13 @@ class StoryController extends Controller
                 // $request->image->move($uploadimage, $imageName);
                 $image = $request->file('image');
                 $img = Image::make($image->path());
-                $img->resize(300, 500, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($uploadimage.'/'.$imageName);
-                Log::info("PUBLIC PATH===" . $uploadimage);
+                // $img->resize(300, 500, function ($constraint) {
+                //     $constraint->aspectRatio();
+                // })->save($uploadimage.'/'.$imageName);
+                
                 $imageNameUpdate= $value . $imageName ;
+                $disk = Storage::disk('gcs')->put($imageNameUpdate, $img);
+                Log::info("PUBLIC PATH===" . $uploadimage);
             } else {
                 $imageNameUpdate =  $story->thumbnail;
                 $imageName = $story->imageHeader;
