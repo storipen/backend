@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Story;
 use Exception;
 use Illuminate\Support\Facades\Storage;
-use App\storyCategory;
+use App\StoryCategory;
 use App\Category;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Log;
@@ -66,7 +66,7 @@ class StoryController extends Controller
             $story->save();
             $category = $request['category'];
             foreach ($category as $ctg) {
-                $categorydb = new storyCategory();
+                $categorydb = new StoryCategory();
                 $resultcategories = Category::find($ctg);
                 $categorydb->story_id = $story->id;
                 $categorydb->idcategory = $ctg;
