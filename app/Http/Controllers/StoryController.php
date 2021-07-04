@@ -57,7 +57,7 @@ class StoryController extends Controller
             //     $constraint->aspectRatio();
             // })->save($imageName);
             $filePath =  $imageName;
-            $disk = Storage::disk('gcs')->put($filePath, $img);
+            $disk = Storage::disk('gcs')->put($filePath, $image);
            
             $story->thumbnail =  $value . $imageName;
             $story->imageHeader =  $imageName;
