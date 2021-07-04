@@ -33,7 +33,8 @@
                                         $stringCut = substr($value['sinopsis'] , 0, 100)
                                          }}</td>
                                     <td>{{ $value['countView'] }}</td>
-                                    <td><img class="img-thumbnail" src="{{URL::to('/images').'/'. $value['imageHeader']}}" alt="" width=" 90" height="70" /></td>
+                                    <td>{{ $value['thumbnail'] }}</td>
+                                    <td><img class="img-thumbnail" src="{{$value['thumbnail']}}" alt="" width=" 90" height="70" /></td>
                                     <td>
                                         <a class="btn btn-link" href="{{ url('/partStory/'.$value['id']) }}" role="button">part</a>
                                         <a class="btn btn-link" href="{{ url('/editStory/'.$value['id']) }}" role="button">Edit</a>
