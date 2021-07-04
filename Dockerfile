@@ -26,14 +26,16 @@ ENV HOST=0.0.0.0
 RUN apt-get update -y \
   && apt-get install --no-install-recommends -y openssl zip unzip git libonig-dev \
   && apt-get clean \
+  && zlib1g-dev  \
   && rm -rf /var/lib/apt/lists/*
 
 RUN ["/bin/bash", "-c", "set -o pipefail && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer"]
 RUN docker-php-ext-install pdo pdo_mysql mbstring
+RUN docker-php-ext-install gd
 WORKDIR /app
 COPY . /app
 RUN composer validate && composer install
-RUN docker-php-ext-install gd
+
 
 EXPOSE 8080
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
