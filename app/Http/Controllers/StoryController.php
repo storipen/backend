@@ -114,7 +114,7 @@ class StoryController extends Controller
                 // })->save($uploadimage.'/'.$imageName);
                 
                 $imageNameUpdate= $value . $imageName ;
-                $disk = Storage::disk('gcs')->put($imageNameUpdate, $img);
+                $disk = Storage::disk('gcs')->put($imageNameUpdate, file_get_contents($image));
                 Log::info("PUBLIC PATH===" . $uploadimage);
             } else {
                 $imageNameUpdate =  $story->thumbnail;
