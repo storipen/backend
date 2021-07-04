@@ -18,22 +18,23 @@
 
 # CMD sh /app/docker/startup.sh
 
-FROM php:7
+FROM php:7.4-fpm
 
 ENV PORT=8080
 ENV HOST=0.0.0.0
 
 RUN apt-get update -y \
   && apt-get install --no-install-recommends -y openssl zip unzip git libonig-dev \
-  zlib1g-dev \
-  libzip-dev \
+  libfreetype6-dev  \
+  libjpeg62-turbo-dev \
+  libpng-dev \
+  && docker-php-ext-configure gd --with-freetype --with-jpeg \
+  && docker-php-ext-install -j$(nproc) gd \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
 RUN ["/bin/bash", "-c", "set -o pipefail && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer"]
 RUN docker-php-ext-install pdo pdo_mysql mbstring
-RUN docker-php-ext-install zip
-RUN docker-php-ext-install gd
 WORKDIR /app
 COPY . /app
 RUN composer validate && composer install
