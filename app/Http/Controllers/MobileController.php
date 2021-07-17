@@ -65,7 +65,7 @@ class MobileController extends Controller
             $user=$this->GetMe();
             $storydata = Story::with('StoryCategory')->where('id',  $id)->first();
             $details = DB::table('part_stories')->select('id', 'idstory', 'titlePart', 'thumbnail', 'countView', 'created_at', 'updated_at', 'imageHeader', 'sub_title')
-            ->rightjoin("likes",'part_stories.id','=','likes.partId')
+            ->leftjoin("likes",'part_stories.id','=','likes.partId')
             ->select('part_stories.id', 'part_stories.idstory', 'part_stories.titlePart', 'part_stories.thumbnail', 'part_stories.countView', 'part_stories.created_at', 'part_stories.updated_at', 'part_stories.imageHeader', 'part_stories.sub_title',DB::raw("count(likes.id) as total_likes"))
             ->groupBy('part_stories.id','likes.partId')
             ->where('idstory', $id)->get();
