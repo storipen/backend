@@ -59,7 +59,7 @@ class MobileController extends Controller
     public function GetDataStoryPart($id)
     {
         $response = new Response;
-          
+        error_log("di sini ya" ,$id);
         try {
              // $details = DB::table('part_stories')->select('id', 'idstory', 'titlePart', 'thumbnail', 'countView', 'created_at', 'updated_at', 'imageHeader', 'sub_title')->where('idstory', $id)->get();
             $user=$this->GetMe();
