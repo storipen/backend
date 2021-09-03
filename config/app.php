@@ -178,6 +178,7 @@ return [
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         Superbalist\LaravelGoogleCloudStorage\GoogleCloudStorageServiceProvider::class,
+        Berkayk\OneSignal\OneSignalServiceProvider::class
 
     ],
 
@@ -233,6 +234,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class, 
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'OneSignal' => Berkayk\OneSignal\OneSignalFacade::class
         
 
     ],
